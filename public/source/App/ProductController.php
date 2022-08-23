@@ -1,14 +1,18 @@
 <?php
 
-namespace Source\App;
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 
+namespace Source\App;
 use Source\Models\Product;
 
 class ProductController
 {
-
-    function getAllProducts()
+    
+    public function getAllProducts()
     {
+
+        Controller::views('dashboard');
         $listProducts = array();
         $product = new Product();
         $list = $product->find()->fetch(true);
@@ -20,13 +24,15 @@ class ProductController
         echo json_encode(['listProducts' => $listProducts]);
     }
 
-    function saveProduct($data)
+    public function save($data)
     {
-        die('saveProduct');
+        echo "<h1> Erro </h1>";
+
+        echo json_encode(['saveProduct' => $data]);
     }
    
 
-    function error($data)
+    public function error($data)
     {
         die("<h1> Erro </h1>");
     }

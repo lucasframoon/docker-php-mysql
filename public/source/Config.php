@@ -2,6 +2,8 @@
 
 define("URL_BASE", "localhost:45000");
 
+define("SITE", "JUMP");
+
 define("DATA_LAYER_CONFIG", [
     "driver" => "mysql",
     "host" => "mysql",
@@ -16,3 +18,11 @@ define("DATA_LAYER_CONFIG", [
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ]
 ]);
+
+function url($uri = null)
+{
+    if ($uri) {
+        return URL_BASE . "/" . $uri;
+    }
+    return URL_BASE;
+}

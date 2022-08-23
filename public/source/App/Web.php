@@ -1,39 +1,27 @@
 <?php
 
 namespace Source\App;
-use Source\Models\Product;
+
+use Leage\Plates\Engine;
+// $route = new \CoffeeCode\Router\Router(URL_BASE);
 
 class Web
 {
+    private $view;
 
-    function getAllProducts()
-    {
-        $listProducts = array();
-        $product = new Product();
-        $list = $product->find()->fetch(true);
-
-        foreach ($list as $prod) {
-            array_push($listProducts, $prod->data());
-        }
-
-        echo json_encode(['listProducts' => $listProducts]);
+    public function __construct(){
+$templates = new Engine(__DIR__ . "/../../views");
+        $templates->render('dashboard', ['name' => 'teste']);
     }
 
-    public function product($data)
+    public function home($data)
     {
-        die('teste');
+        echo "<h1>  HOME </h1>";
+
     }
 
-    public function category($data)
+    public function error(array $data)
     {
-        echo "<h1>Category </h1>";
-        var_dump($data);
-        exit;
-    }
-
-    public function error($data)
-    {
-        echo "<h1> Erro </h1>";
-        exit;
+        echo "<h1> Erro ". $data["errcode"] ."</h1>";
     }
 }

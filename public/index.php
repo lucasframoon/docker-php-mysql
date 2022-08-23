@@ -1,39 +1,33 @@
+
 <?php
 
 require __DIR__ . "/vendor/autoload.php";
 
-use CoffeeCode\Router\Router;
+$route = new \CoffeeCode\Router\Router(URL_BASE);
 
-$router = new Router(URL_BASE);
+/**
+ * APP
+ */
+$route->namespace("Source\App");
 
-//Controllers
-$router->namespace("Source\App");
+/**
+ * web
+ */
+$route->group(null);
+$route->get("/", "Web:home");
+$route->get("/contato", "Web:contact");
 
-// Web:dashboard
-$router->group(null);
-$router->get("/", "Web:getAllProducts");
-// $router->post("/", "Web:product");
-// $router->delete("/", "Web:dashboard");
+/**
+ * ERROR
+ */
+$route->group("ops");
+$route->get("/{errcode}", "Web:error");
 
-// //Web:product
-$router->group('product');
-$router->get("/", "ProductController:getAllProducts");
-$router->post("/", "ProductController:product");
-// $router->delete("/", "ProductController:product");
+/**
+ * PROCESS
+ */
+$route->dispatch();
 
-
-// //Web:category
-$router->group('category');
-$router->get("/", "Web:category");
-$router->post("/", "Web:category");
-$router->delete("/", "Web:category");
-
-//ERROR 
-// $router->group("error");
-// $router->get("/{errcode}", "Web:error");
-
-$router->dispatch();
-
-// if ($router->error()) {
-//     $router->redirect("/ooops/{$router->error()}");
-// }
+if ($route->error()) {
+    $route->redirect("/ops/{$route->error()}");
+}

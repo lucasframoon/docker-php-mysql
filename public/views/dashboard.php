@@ -161,11 +161,12 @@
   $(document).ready(function () {
 
     $.ajax({
-      url: 'http://localhost:45000/product',
+      url: '/source/App/getAllProducts.php',
       type: 'GET',
       dataType: 'json',
       success: function (response) {
         listProducts = response.listProducts;
+        console.log(listProducts)
         $(".infor").append(`You have ${listProducts.length} products added on this store: <a href="addProduct.html" class="btn-action">Add new Product</a>`)
         listProducts.forEach(item => {
           $('#productListUl').append(`<li>

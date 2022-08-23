@@ -111,7 +111,7 @@
 <main class="content">
   <h1 class="title new-item">New Product</h1>
 
-  <form action="insertOrUpdateProduct.php">
+  <form>
     <div class="input-field">
       <label for="sku" class="label">Product SKU</label>
       <input type="text" id="sku" class="input-text" />
@@ -163,6 +163,39 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+<script>
+
+  $("form").on("submit", function (event) {
+    event.preventDefault();
+    saveProduct()
+  });
+
+  function saveProduct() {
+
+    $.ajax({
+      url: 'http://localhost:45000/save',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        'nr_sku': $('#sku').val(),
+        'nm_product': $('#name').val(),
+        'vl_product': $('#price').val(),
+        'nr_quantity': $('#quantity').val(),
+        'ds_description': $('#description').val(),
+        'id_category': $('#category').val()
+      },
+      success: function (response) {
+        console.log(response);
+
+      }
+      ,
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
+</script>
 </body>
 
 </html>

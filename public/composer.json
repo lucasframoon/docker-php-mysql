@@ -10,6 +10,7 @@
     },
     "require":{
         "coffeecode/router": "2.0.*",
-        "coffeecode/datalayer": "1.1.*"
+        "coffeecode/datalayer": "1.1.*",
+        "league/plates": "3.*"
     }
 }
