@@ -11,8 +11,8 @@ services:
             - '.:/app'
         environment:
             - MYSQL_ROOT_PASSWORD=secret
-            - MYSQL_DATABASE=sampleDb
-            - MYSQL_USER=userdb
+            - MYSQL_DATABASE=myDb
+            - MYSQL_USER=dba
             - MYSQL_PASSWORD=secret
         ports:
             - '45002:3306'       
