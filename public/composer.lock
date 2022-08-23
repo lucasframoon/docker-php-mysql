@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "697e63c0b58f80097348c5b2d205a31a",
+    "content-hash": "8e215723e2ae4d1d24aa26e226f75b80",
     "packages": [
         {
             "name": "coffeecode/datalayer",
-            "version": "2.0.6",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsonvleite/datalayer.git",
-                "reference": "acd0282698a9a16846c0bee72dcec0284fdc6600"
+                "reference": "52e209190752eccc0bfd8ff3abcdd607ed4c01c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsonvleite/datalayer/zipball/acd0282698a9a16846c0bee72dcec0284fdc6600",
-                "reference": "acd0282698a9a16846c0bee72dcec0284fdc6600",
+                "url": "https://api.github.com/repos/robsonvleite/datalayer/zipball/52e209190752eccc0bfd8ff3abcdd607ed4c01c1",
+                "reference": "52e209190752eccc0bfd8ff3abcdd607ed4c01c1",
                 "shasum": ""
             },
             "require": {
                 "ext-pdo": "*",
-                "php": ">=8.0"
+                "php": ">=7.2"
             },
             "type": "library",
             "autoload": {
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "The data layer is a persistent abstraction component of your database that PDO",
-            "homepage": "https://www.upinside.com.br",
+            "homepage": "http://www.upinside.com.br",
             "keywords": [
                 "Coffeecode",
                 "crud",
@@ -55,9 +55,9 @@
             ],
             "support": {
                 "issues": "https://github.com/robsonvleite/datalayer/issues",
-                "source": "https://github.com/robsonvleite/datalayer/tree/2.0.6"
+                "source": "https://github.com/robsonvleite/datalayer/tree/1.1.8"
             },
-            "time": "2022-04-13T23:41:55+00:00"
+            "time": "2021-03-21T14:00:57+00:00"
         },
         {
             "name": "coffeecode/router",

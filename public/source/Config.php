@@ -2,9 +2,9 @@
 
 define("URL_BASE", "localhost:45000");
 
-const DATA_LAYER_CONFIG = [
+define("DATA_LAYER_CONFIG", [
     "driver" => "mysql",
-    "host" => "localhost",
+    "host" => "mysql",
     "port" => "3306",
     "dbname" => "myDb",
     "username" => "dba",
@@ -15,4 +15,4 @@ const DATA_LAYER_CONFIG = [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
         PDO::ATTR_CASE => PDO::CASE_NATURAL
     ]
-];
+]);

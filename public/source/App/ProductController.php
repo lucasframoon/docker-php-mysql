@@ -1,9 +1,10 @@
 <?php
 
 namespace Source\App;
+
 use Source\Models\Product;
 
-class Web
+class ProductController
 {
 
     function getAllProducts()
@@ -19,21 +20,15 @@ class Web
         echo json_encode(['listProducts' => $listProducts]);
     }
 
-    public function product($data)
+    function saveProduct($data)
     {
-        die('teste');
+        die('saveProduct');
+    }
+   
+
+    function error($data)
+    {
+        die("<h1> Erro </h1>");
     }
 
-    public function category($data)
-    {
-        echo "<h1>Category </h1>";
-        var_dump($data);
-        exit;
-    }
-
-    public function error($data)
-    {
-        echo "<h1> Erro </h1>";
-        exit;
-    }
 }

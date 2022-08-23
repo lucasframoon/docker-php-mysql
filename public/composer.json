@@ -1,0 +1,15 @@
+{
+    "name": "test/webjump",
+    "autoload": {
+        "psr-4": {
+            "Source\\": "source/"
+        },
+        "files": [
+            "source/Config.php"
+        ]
+    },
+    "require":{
+        "coffeecode/router": "2.0.*",
+        "coffeecode/datalayer": "1.1.*"
+    }
+}
