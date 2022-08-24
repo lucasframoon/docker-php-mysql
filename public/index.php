@@ -9,16 +9,17 @@ $router = new Router(URL_BASE);
 //Controllers
 $router->namespace("Source\App");
 
-// Web:dashboard
+// ProductController:dashboard
 $router->group(null);
-$router->get("/", "Web:getAllProducts");
+$router->get("/", "ProductController:getAllProducts");
+
 // $router->post("/", "Web:product");
 // $router->delete("/", "Web:dashboard");
 
 // //Web:product
 $router->group('product');
 $router->get("/", "ProductController:getAllProducts");
-$router->post("/", "ProductController:product");
+// $router->post("/", "ProductController:product");
 // $router->delete("/", "ProductController:product");
 
 
@@ -29,11 +30,11 @@ $router->post("/", "Web:category");
 $router->delete("/", "Web:category");
 
 //ERROR 
-// $router->group("error");
-// $router->get("/{errcode}", "Web:error");
+$router->group("error");
+$router->get("/{errcode}", "Web:error");
 
 $router->dispatch();
 
-// if ($router->error()) {
-//     $router->redirect("/ooops/{$router->error()}");
-// }
+if ($router->error()) {
+    $router->redirect("/ooops/{$router->error()}");
+}
