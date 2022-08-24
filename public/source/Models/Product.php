@@ -15,7 +15,7 @@ class Product extends DataLayer
      */
     public function __construct()
     {
-        parent::__construct("products", ["nm_product", "vl_product", "qt_product", "id_category"], "nr_sku");
+        parent::__construct("products", ["nr_sku", "nm_product", "vl_product", "qt_product"], "id_product");
     }
 
     public static function getAllProducts()
@@ -36,8 +36,8 @@ class Product extends DataLayer
         return $product->destroy();
     }
 
-    public function categoriesByProduct()
-    {
-        return (new Category())->find("id_category = :idCategory", ":idCategory=" . ($this->id_category))->fetch(true);
-    }
+    // public function categoriesByProduct()
+    // {
+    //     return (new Category())->find("id_category = :idCategory", ":idCategory=" . ($this->id_category))->fetch(true);
+    // }
 }

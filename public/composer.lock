@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad7ecb5bbc24bd9d092c425ef4327add",
+    "content-hash": "2d22a5ac81de29d932823687e1f11194",
     "packages": [
         {
             "name": "coffeecode/datalayer",
@@ -58,55 +58,6 @@
                 "source": "https://github.com/robsonvleite/datalayer/tree/1.1.8"
             },
             "time": "2021-03-21T14:00:57+00:00"
-        },
-        {
-            "name": "coffeecode/router",
-            "version": "1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robsonvleite/router.git",
-                "reference": "29f73e12351a116e9bbb3f695595777a09e18077"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robsonvleite/router/zipball/29f73e12351a116e9bbb3f695595777a09e18077",
-                "reference": "29f73e12351a116e9bbb3f695595777a09e18077",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CoffeeCode\\Router\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robson V. Leite",
-                    "email": "cursos@upinside.com.br",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A classic CoffeeCode Router is easy, fast and extremely uncomplicated. Create and manage your routes in minutes!",
-            "homepage": "http://www.upinside.com.br",
-            "keywords": [
-                "Coffeecode",
-                "route",
-                "router",
-                "routes",
-                "upinside"
-            ],
-            "support": {
-                "issues": "https://github.com/robsonvleite/router/issues",
-                "source": "https://github.com/robsonvleite/router/tree/1.0.8"
-            },
-            "time": "2021-03-21T18:45:16+00:00"
         }
     ],
     "packages-dev": [],

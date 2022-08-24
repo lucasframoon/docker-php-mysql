@@ -2,39 +2,43 @@
 
 require __DIR__ . "/vendor/autoload.php";
 
-use CoffeeCode\Router\Router;
-
-$router = new Router(URL_BASE);
-
-//Controllers
-$router->namespace("Source\App");
-
-// ProductController:dashboard
-$router->group(null);
-$router->get("/", "ProductController:getAllProducts");
-
-// $router->post("/", "Web:product");
-// $router->delete("/", "Web:dashboard");
-
-// //Web:product
-$router->group('product');
-$router->get("/", "ProductController:getAllProducts");
-// $router->post("/", "ProductController:product");
-// $router->delete("/", "ProductController:product");
+header("location: views/dashboard.php"); 
 
 
-// //Web:category
-$router->group('category');
-$router->get("/", "Web:category");
-$router->post("/", "Web:category");
-$router->delete("/", "Web:category");
+// use CoffeeCode\Router\Router;
 
-//ERROR 
-$router->group("error");
-$router->get("/{errcode}", "Web:error");
+// $router = new Router(URL_BASE);
 
-$router->dispatch();
+// //Controllers
+// $router->namespace("Source\App");
 
-if ($router->error()) {
-    $router->redirect("/ooops/{$router->error()}");
-}
+// // ProductController:dashboard
+// $router->group(null);
+// $router->get("/", "ProductController:getAllProducts");
+
+// // //Web:product
+// $router->group('product');
+// $router->post("/save", "ProductController:save");
+// // $router->post("/", "ProductController:product");
+// // $router->delete("/", "ProductController:product");
+
+
+// // //Web:category
+// // $router->group('category');
+// // $router->get("/", "CategoryController:getAllCategories");
+// // $router->post("/save", "CategoryController:save");
+// // $router->delete("/", "CategoryController:category");
+
+// //Web:error
+// $router->group("error");
+// $router->get("/{errcode}", "Web:error");
+
+
+// $router->dispatch();
+
+// /*
+//  * Redirect all errors
+//  */
+// if ($router->error()) {
+//     $router->redirect("/error/{$router->error()}");
+// }

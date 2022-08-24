@@ -86,8 +86,7 @@
       <img src="/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
     </a>
   </div>
-  <a href="dashboard.html"><img src="/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200"
-      height="43" /></a>
+  <a href="dashboard.php"><img src="/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
   <div>
     <ul>
       <li><a href="categories.html" class="link-menu">Categorias</a></li>
@@ -98,8 +97,7 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/views/assets/images/go-logo.png" alt="Welcome" width="69"
-        height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -111,7 +109,7 @@
 <main class="content">
   <h1 class="title new-item">New Product</h1>
 
-  <form action="/product">
+  <form>
     <div class="input-field">
       <label for="sku" class="label">Product SKU</label>
       <input type="text" id="sku" class="input-text" />
@@ -131,10 +129,10 @@
     <div class="input-field">
       <label for="category" class="label">Categories</label>
       <select multiple id="category" class="input-text">
-        <option>Category 1</option>
-        <option>Category 2</option>
+        <option value="">Category 1</option>
+        <!-- <option>Category 2</option>
         <option>Category 3</option>
-        <option>Category 4</option>
+        <option>Category 4</option> -->
       </select>
     </div>
     <div class="input-field">
@@ -160,14 +158,57 @@
   </div>
 </footer>
 <!-- Footer -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-  <script>
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: '/source/App/getAllCategories.php',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+        listCategories = response.listCategories;
+        listCategories.forEach(item => {
+          $('#category').append(`<option value="${item.id_category}" >${item.nm_category}</option>`);
+        });
+      }
+    });
+
+  });
 
 
+  $("form").submit(function(e) {
+    e.preventDefault();
 
-  </script>
+    formData = new FormData();
+    formData.append("id_product", '');
+    formData.append("nr_sku", $("#sku").val());
+    formData.append("nm_product", $("#name").val());
+    formData.append("vl_product", $("#price").val());
+    formData.append("qt_product", $("#quantity").val());
+    formData.append("id_category", $("#category").val());
+    formData.append("ds_description", $("#description").val());
+    // formData.append("image", $("#image").prop("files")[0]);
+
+    $.ajax({
+      url: 'http://localhost:45000/source/App/saveProduct.php',
+      dataType: 'json',
+      type: 'POST',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        if (response.success) {
+          alert("Product saved successfully");
+        } else {
+          alert("Error saving product");
+        }
+      },
+      
+    });
+  });
+</script>
 </body>
 
 </html>

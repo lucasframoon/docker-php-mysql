@@ -161,24 +161,27 @@
   $(document).ready(function () {
 
     $.ajax({
-      url: 'http://localhost:45000/product',
+      url: '/source/App/getAllProducts.php',
       type: 'GET',
       dataType: 'json',
       success: function (response) {
         listProducts = response.listProducts;
-        $(".infor").append(`You have ${listProducts.length} products added on this store: <a href="addProduct.html" class="btn-action">Add new Product</a>`)
+        $(".infor").append(`You have ${listProducts.length} products added on this store: <a href="addProduct.php" class="btn-action">Add new Product</a>`)
         listProducts.forEach(item => {
           $('#productListUl').append(`<li>
                                         <div class="product-image">
-                                          <img src="/views/assets/images/product/tenis-sneakers-43n.png" layout="responsive" width="164" height="145"
-                                            alt=${item.nm_product} />
+                                          <img src="${item.ds_file_path}" layout="responsive" width="164" height="145"
+                                            alt="${item.nm_product}" />
                                         </div>
                                         <div class="product-info">
                                           <div class="product-name"><span>${item.nm_product}</span></div>
-                                          <div class="product-price"><span class="special-price">Out of stock</span> <span>R$${item.vl_product}</span></div>
+                                          <div class="product-price"><span class="special-price">${item.qt_product > 0 ? item.qt_product + ' Available': 'Out of stock'}</span> <span>R$${item.vl_product}</span></div>
                                         </div>
                                       </li>`);
         });
+      },
+      error: function (error) {
+        console.log(error);
       }
     });
 
