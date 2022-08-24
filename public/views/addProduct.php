@@ -78,6 +78,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script src="/views/assets/javascript/util.js"></script>
 </head>
 <!-- Header -->
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
@@ -162,8 +163,9 @@
 
 <script>
   $(document).ready(function() {
+
     $.ajax({
-      url: '/source/App/getAllCategories.php',
+      url: '/source/App/category/getAllCategories.php',
       type: 'GET',
       dataType: 'json',
       success: function(response) {
@@ -173,6 +175,26 @@
         });
       }
     });
+
+    if (getParameterByName('id') != null) {
+      $.ajax({
+        url: '/source/App/product/getProduct.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          idProduct: getParameterByName('id')
+        },
+        success: function(response) {
+          $('#sku').val(response.product.nr_sku);
+          $('#name').val(response.product.nm_product);
+          $('#price').val(response.product.vl_product);
+          $('#quantity').val(response.product.qt_product);
+          $('#description').val(response.product.ds_description);
+
+          $("#category").val(response.productCategories);
+        }
+      });
+    }
 
   });
 
@@ -191,7 +213,7 @@
     // formData.append("image", $("#image").prop("files")[0]);
 
     $.ajax({
-      url: 'http://localhost:45000/source/App/saveProduct.php',
+      url: 'http://localhost:45000/source/App/product/saveProduct.php',
       dataType: 'json',
       type: 'POST',
       data: formData,
@@ -201,11 +223,12 @@
       success: function(response) {
         if (response.success) {
           alert("Product saved successfully");
+          location.assign('./addProduct.php?id=' + response.idProduct);
         } else {
           alert("Error saving product");
         }
       },
-      
+
     });
   });
 </script>
