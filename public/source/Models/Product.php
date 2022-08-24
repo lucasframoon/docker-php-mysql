@@ -18,16 +18,18 @@ class Product extends DataLayer
         parent::__construct("products", ["nm_product", "vl_product", "qt_product", "id_category"], "nr_sku");
     }
 
-    function getAllProducts()
-    {
-        $product = new Product();
-        return $product->find()->fetch(true);
-    }
+    // public static function getAllProducts()
+    // {
+    //     $product = new Product();
+    //     return $product->find()->fetch(true);
 
-    public function saveProduct(Product $product)
-    {
-        return $product->save();
-    }
+    // }
+
+    // public function saveProduct(Product $product)
+    // {
+    //     return $product->save();
+        
+    // }
 
     public function deleteProduct(Product $product)
     {

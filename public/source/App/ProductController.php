@@ -7,8 +7,9 @@ use Source\Models\Product;
 class ProductController
 {
 
-    function getAllProducts()
+    public function getAllProducts()
     {
+
         $listProducts = array();
         $product = new Product();
         $list = $product->find()->fetch(true);
@@ -20,15 +21,28 @@ class ProductController
         echo json_encode(['listProducts' => $listProducts]);
     }
 
-    function saveProduct($data)
+    public function getById($data)
     {
-        die('saveProduct');
-    }
-   
-
-    function error($data)
-    {
-        die("<h1> Erro </h1>");
+        $product = new Product();
+        $product->findById($data['nr_sku']);
+        echo json_encode(['product' => $product->data()]);
     }
 
+    public function saveProduct($data)
+    {
+        $product = new Product();
+
+        if ($data['nr_sku']) {
+            $product = (new Product())->findById($data['nr_sku']);
+        }
+
+        $product->nr_sku = $data['nr_sku'];
+        $product->nm_product = $data['nm_product'];
+        $product->vl_product = $data['vl_product'];
+        $product->qt_product = $data['qt_product'];
+        $product->id_category = $data['id_category'];
+        $product->ds_description = $data['ds_description'];
+
+        $product->save();
+    }
 }
