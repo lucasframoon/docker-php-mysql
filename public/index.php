@@ -2,7 +2,7 @@
 
 require __DIR__ . "/vendor/autoload.php";
 
-header("location: views/dashboard.php"); 
+header("location: /source/views/dashboard.php"); 
 
 
 // use CoffeeCode\Router\Router;

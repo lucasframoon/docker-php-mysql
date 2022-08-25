@@ -5,7 +5,7 @@
   <title>Webjump | Backend Test | Add Product</title>
   <meta charset="utf-8">
 
-  <link rel="stylesheet" type="text/css" media="all" href="/views/assets/css/style.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="/source/views/assets/css/style.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
   <style amp-boilerplate>
@@ -78,16 +78,16 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-  <script src="/views/assets/javascript/util.js"></script>
+  <script src="/source/views/assets/javascript/util.js"></script>
 </head>
 <!-- Header -->
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
   <div class="close-menu">
     <a on="tap:sidebar.toggle">
-      <img src="/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
+      <img src="/source/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
     </a>
   </div>
-  <a href="dashboard.php"><img src="/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
+  <a href="dashboard.php"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
   <div>
     <ul>
       <li><a href="categories.html" class="link-menu">Categorias</a></li>
@@ -98,7 +98,7 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -152,7 +152,7 @@
 <!-- Footer -->
 <footer>
   <div class="footer-image">
-    <img src="/views/assets/images/go-jumpers.png" width="119" height="26" alt="Go Jumpers" />
+    <img src="/source/views/assets/images/go-jumpers.png" width="119" height="26" alt="Go Jumpers" />
   </div>
   <div class="email-content">
     <span>go@jumpers.com.br</span>

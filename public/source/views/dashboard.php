@@ -5,7 +5,7 @@
   <title>Webjump | Backend Test | Dashboard</title>
   <meta charset="utf-8">
 
-  <link rel="stylesheet" type="text/css" media="all" href="/views/assets/css/style.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="/source/views/assets/css/style.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
   <style amp-boilerplate>
@@ -83,11 +83,10 @@
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
   <div class="close-menu">
     <a on="tap:sidebar.toggle">
-      <img src="/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
+      <img src="/source/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
     </a>
   </div>
-  <a href="dashboard.html"><img src="/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200"
-      height="43" /></a>
+  <a href="dashboard.html"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
   <div>
     <ul>
       <li><a href="categories.html" class="link-menu">Categorias</a></li>
@@ -98,8 +97,7 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/views/assets/images/go-logo.png" alt="Welcome" width="69"
-        height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -118,7 +116,7 @@
   <ul class="product-list" id="productListUl">
     <!-- <li>
       <div class="product-image">
-        <img src="/views/assets/images/product/tenis-runner-bolt.png" layout="responsive" width="164" height="145"
+        <img src="/source/views/assets/images/product/tenis-runner-bolt.png" layout="responsive" width="164" height="145"
           alt="Tênis Runner Bolt" />
       </div>
       <div class="product-info">
@@ -129,7 +127,7 @@
     <li>
       <div class="product-image">
         <a href="tenis-basket-light.html" title="Tênis Basket Light">
-          <img src="/views/assets/images/product/tenis-basket-light.png" layout="responsive" width="164" height="145"
+          <img src="/source/views/assets/images/product/tenis-basket-light.png" layout="responsive" width="164" height="145"
             alt="Tênis Basket Light" />
         </a>
       </div>
@@ -141,7 +139,7 @@
     <li>
       <div class="product-image">
         <a href="tenis-basket-light.html" title="Tênis Basket Light">
-          <img src="/views/assets/images/product/tenis-2d-shoes.png" layout="responsive" width="164" height="145"
+          <img src="/source/views/assets/images/product/tenis-2d-shoes.png" layout="responsive" width="164" height="145"
             alt="Tênis 2D Shoes" />
         </a>
       </div>
@@ -154,17 +152,28 @@
   </ul>
 </main>
 <!-- Main Content -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-image">
+    <img src="/source/views/assets/images/go-jumpers.png" width="119" height="26" alt="Go Jumpers" />
+  </div>
+  <div class="email-content">
+    <span>go@jumpers.com.br</span>
+  </div>
+</footer>
+<!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
 
     $.ajax({
-      url: '/source/App/getAllProducts.php',
+      url: '/source/App/product/getAllProducts.php',
       type: 'GET',
       dataType: 'json',
-      success: function (response) {
+      success: function(response) {
         listProducts = response.listProducts;
         $(".infor").append(`You have ${listProducts.length} products added on this store: <a href="addProduct.php" class="btn-action">Add new Product</a>`)
         listProducts.forEach(item => {
@@ -180,25 +189,13 @@
                                       </li>`);
         });
       },
-      error: function (error) {
+      error: function(error) {
         console.log(error);
       }
     });
 
   });
-
 </script>
-
-<!-- Footer -->
-<footer>
-  <div class="footer-image">
-    <img src="/views/assets/images/go-jumpers.png" width="119" height="26" alt="Go Jumpers" />
-  </div>
-  <div class="email-content">
-    <span>go@jumpers.com.br</span>
-  </div>
-</footer>
-<!-- Footer -->
 </body>
 
 </html>
