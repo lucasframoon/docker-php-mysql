@@ -226,9 +226,14 @@
       success: function (response) {
         if (response.success) {
           alert("Product saved successfully");
-          location.assign('/addProduct.php?id=' + response.idProduct);
+          location.assign('./addProduct.html?id=' + response.idProduct);
         } else {
-          alert("Error saving product");
+          if (response.error == 'invalid_param') {
+            alert(response.message);
+          } else {
+            alert("Error saving product");
+            console.warn(response.error);
+          }
         }
       },
 

@@ -25,15 +25,12 @@ try {
     if ($nmCategory == "") {
         echo json_encode([
             'success' => false,
-            'message' => 'Nome inválido'
+            'error' => 'invalid_param',
+            'message' => 'Invalid name'
         ]);
         exit;
     } else {
         $category->nm_category = $nmCategory;
-    }
-
-    if ($nmCategory != "") {
-        $category->nm_category = $qtCategory;
     }
 
     $responseCategory = $category->save();

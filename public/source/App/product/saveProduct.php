@@ -31,7 +31,8 @@ try {
     if ($nrSku == "" || !is_numeric($nrSku)) {
         echo json_encode([
             'success' => false,
-            'message' => 'SKU inválido'
+            'error' => 'invalid_param',
+            'message' => 'Invalid SKU'
         ]);
         exit;
     } else {
@@ -41,7 +42,8 @@ try {
     if ($nmProduct == "") {
         echo json_encode([
             'success' => false,
-            'message' => 'Nome inválido'
+            'error' => 'invalid_param',
+            'message' => 'Invalid name'
         ]);
         exit;
     } else {

@@ -118,9 +118,9 @@
       <input type="text" id="category-name" class="input-text" />
 
     </div>
-    <div class="input-field">
+    <div class="input-field" id="div-category-code">
       <label for="category-code" class="label">Category Code</label>
-      <input type="text" id="category-code" class="input-text" />
+      <input type="text" id="category-code" class="input-text"  disabled="disabled"/>
 
     </div>
     <div class="actions-form">
@@ -150,6 +150,8 @@
 
         }
       });
+    }else{
+      $('#div-category-code').css('display', 'none');
     }
 
   });
@@ -162,7 +164,7 @@
     formData.append("nm_category", $("#category-name").val());
 
     $.ajax({
-      url: 'http://localhost:45000/source/App/product/saveProduct.php',
+      url: 'http://localhost:45000/source/App/category/saveCategory.php',
       dataType: 'json',
       type: 'POST',
       data: formData,
@@ -171,10 +173,15 @@
       processData: false,
       success: function (response) {
         if (response.success) {
-          alert("Product saved successfully");
-          location.assign('/addProduct.php?id=' + response.idProduct);
+          alert("Category saved successfully");
+          location.assign('./addCategory.html?id=' + response.idCategory);
         } else {
-          alert("Error saving product");
+          if (response.error == 'invalid_param') {
+            alert(response.message);
+          } else {
+            alert("Error saving category");
+            console.warn(response.error);
+          }
         }
       },
 
