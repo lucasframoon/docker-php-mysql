@@ -1,5 +1,6 @@
 <?php
 
+// phpinfo();
 require __DIR__ . "/vendor/autoload.php";
 
 header("location: /source/views/dashboard.html"); 

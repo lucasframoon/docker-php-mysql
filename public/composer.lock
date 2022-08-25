@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d22a5ac81de29d932823687e1f11194",
+    "content-hash": "d4101c379f7dfa3d1416d965a534084c",
     "packages": [
         {
             "name": "coffeecode/datalayer",
@@ -58,6 +58,64 @@
                 "source": "https://github.com/robsonvleite/datalayer/tree/1.1.8"
             },
             "time": "2021-03-21T14:00:57+00:00"
+        },
+        {
+            "name": "coffeecode/uploader",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robsonvleite/uploader.git",
+                "reference": "14fbff541d3e2abd26d516e6de6b79b6a2b0a7fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robsonvleite/uploader/zipball/14fbff541d3e2abd26d516e6de6b79b6a2b0a7fd",
+                "reference": "14fbff541d3e2abd26d516e6de6b79b6a2b0a7fd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-gd": "*",
+                "ext-mbstring": "*",
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CoffeeCode\\Uploader\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robson V. Leite",
+                    "email": "cursos@upinside.com.br",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tiago Chini",
+                    "email": "tiago.chini@hotmail.com",
+                    "role": "collaborator"
+                }
+            ],
+            "description": "It is a easy PHP upload manager for images, files and media in your application",
+            "homepage": "http://www.upinside.com.br",
+            "keywords": [
+                "Coffeecode",
+                "Image upload",
+                "file upload",
+                "media upload",
+                "upinside",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/robsonvleite/uploader/issues",
+                "source": "https://github.com/robsonvleite/uploader/tree/2.0.0"
+            },
+            "time": "2022-04-02T23:37:55+00:00"
         }
     ],
     "packages-dev": [],

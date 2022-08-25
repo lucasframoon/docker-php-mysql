@@ -15,7 +15,26 @@ try {
     $nmProduct = filter_var(filter_input(INPUT_POST, "nm_product"));
     $vlProduct = filter_var(filter_input(INPUT_POST, "vl_product"));
     $dsDescription = filter_var(filter_input(INPUT_POST, "ds_description"));
+    $upload = new \CoffeeCode\Uploader\Image(__DIR__ . "/../../uploads", "images");
+    $files = $_FILES;
 
+    if ($files["image"]) {
+        $file = $files["image"];
+
+        if (empty($file["type"]) || !in_array($file["type"], $upload::isAllowed())) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'invalid_param',
+                'message' => 'Invalid image type',
+                'teste' => $file
+            ]);
+            exit;
+        } else {
+            $uploaded = $upload->upload($file, pathinfo($file["name"], PATHINFO_FILENAME), 1080);
+        }
+    }
+    var_dump($uploaded);
+    exit;
     $product = new Product();
     $responseProduct = false;
     $isUpdate = false;
@@ -60,6 +79,10 @@ try {
 
     if ($dsDescription != "") {
         $product->ds_description = $dsDescription;
+    }
+
+    if (isset($uploaded)) {
+        $product->ds_file_path = $uploaded;
     }
 
     $responseProduct = $product->save();

@@ -9,6 +9,7 @@
         ]
     },
     "require":{
-        "coffeecode/datalayer": "1.1.*"
+        "coffeecode/datalayer": "1.1.*",
+        "coffeecode/uploader": "2.0.0"
     }
 }
