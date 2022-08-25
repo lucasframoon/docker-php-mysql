@@ -3,12 +3,17 @@ require __DIR__ . "/../../../vendor/autoload.php";
 
 use Source\Models\Product;
 
-$listProducts = array();
-$product = new Product();
-$list = $product->find()->fetch(true);
+try {
+    $listProducts = array();
+    $product = new Product();
+    $list = $product->find()->fetch(true);
 
-foreach ($list as $prod) {
-    array_push($listProducts, $prod->data());
+    foreach ($list as $prod) {
+        array_push($listProducts, $prod->data());
+    }
+
+    echo json_encode(['success' => true, 'listProducts' => $listProducts]);
+} catch (\Throwable $th) {
+    echo json_encode(['success' => false, 'error' => $th->getMessage()]);
+    exit;
 }
-
-echo json_encode(['listProducts' => $listProducts]);

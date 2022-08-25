@@ -78,6 +78,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script src="/source/views/assets/javascript/util.js"></script>
 </head>
 <!-- Header -->
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
@@ -98,8 +99,8 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69"
-        height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome"
+        width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -135,20 +136,50 @@
 <script>
   $(document).ready(function () {
 
-    function addCategory() {
+    if (getParameterByName('id') != null) {
       $.ajax({
-        url: 'http://localhost:45000/addCategory',
-        type: 'GET',
+        url: '/source/App/category/getCategory.php',
+        type: 'POST',
         dataType: 'json',
-        data: {},
-        success: function (data) {
-          console.log(data);
+        data: {
+          idCategory: getParameterByName('id')
+        },
+        success: function (response) {
+          $('#category-code').val(response.category.id_category);
+          $('#category-name').val(response.category.nm_category);
+
         }
       });
     }
 
   });
 
+  $("form").submit(function (e) {
+    e.preventDefault();
+
+    formData = new FormData();
+    formData.append("id_category", $("#category-code").val());
+    formData.append("nm_category", $("#category-name").val());
+
+    $.ajax({
+      url: 'http://localhost:45000/source/App/product/saveProduct.php',
+      dataType: 'json',
+      type: 'POST',
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        if (response.success) {
+          alert("Product saved successfully");
+          location.assign('/addProduct.php?id=' + response.idProduct);
+        } else {
+          alert("Error saving product");
+        }
+      },
+
+    });
+  });
 </script>
 <!-- Footer -->
 <footer>

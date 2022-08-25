@@ -17,6 +17,8 @@ try {
     }
 
     echo json_encode(['success' => true, 'listCategories' => $listCategories]);
+    exit;
 } catch (\Throwable $th) {
     echo json_encode(['success' => false, 'error' => $th->getMessage()]);
+    exit;
 }

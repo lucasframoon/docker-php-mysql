@@ -87,7 +87,8 @@
       <img src="/source/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
     </a>
   </div>
-  <a href="dashboard.php"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
+  <a href="dashboard.php"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200"
+      height="43" /></a>
   <div>
     <ul>
       <li><a href="categories.html" class="link-menu">Categorias</a></li>
@@ -98,7 +99,8 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome"
+        width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -159,16 +161,17 @@
   </div>
 </footer>
 <!-- Footer -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
 
     $.ajax({
       url: '/source/App/category/getAllCategories.php',
       type: 'GET',
       dataType: 'json',
-      success: function(response) {
+      success: function (response) {
         listCategories = response.listCategories;
         listCategories.forEach(item => {
           $('#category').append(`<option value="${item.id_category}" >${item.nm_category}</option>`);
@@ -184,7 +187,7 @@
         data: {
           idProduct: getParameterByName('id')
         },
-        success: function(response) {
+        success: function (response) {
           $('#sku').val(response.product.nr_sku);
           $('#name').val(response.product.nm_product);
           $('#price').val(response.product.vl_product);
@@ -199,11 +202,11 @@
   });
 
 
-  $("form").submit(function(e) {
+  $("form").submit(function (e) {
     e.preventDefault();
 
     formData = new FormData();
-    formData.append("id_product", '');
+    formData.append("id_product", getParameterByName('id') != null ? getParameterByName('id') : '');
     formData.append("nr_sku", $("#sku").val());
     formData.append("nm_product", $("#name").val());
     formData.append("vl_product", $("#price").val());
@@ -220,10 +223,10 @@
       cache: false,
       contentType: false,
       processData: false,
-      success: function(response) {
+      success: function (response) {
         if (response.success) {
           alert("Product saved successfully");
-          location.assign('./addProduct.php?id=' + response.idProduct);
+          location.assign('/addProduct.php?id=' + response.idProduct);
         } else {
           alert("Error saving product");
         }

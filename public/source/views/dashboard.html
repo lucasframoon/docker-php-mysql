@@ -78,6 +78,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script src="/source/views/assets/javascript/util.js"></script>
 </head>
 <!-- Header -->
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
@@ -86,7 +87,8 @@
       <img src="/source/views/assets/images/bt-close.png" alt="Close Menu" width="24" height="24" />
     </a>
   </div>
-  <a href="dashboard.html"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200" height="43" /></a>
+  <a href="dashboard.html"><img src="/source/views/assets/images/menu-go-jumpers.png" alt="Welcome" width="200"
+      height="43" /></a>
   <div>
     <ul>
       <li><a href="categories.html" class="link-menu">Categorias</a></li>
@@ -97,7 +99,8 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69" height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome"
+        width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -164,16 +167,17 @@
 </footer>
 <!-- Footer -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
 
     $.ajax({
       url: '/source/App/product/getAllProducts.php',
       type: 'GET',
       dataType: 'json',
-      success: function(response) {
+      success: function (response) {
         listProducts = response.listProducts;
         $(".infor").append(`You have ${listProducts.length} products added on this store: <a href="addProduct.php" class="btn-action">Add new Product</a>`)
         listProducts.forEach(item => {
@@ -184,12 +188,12 @@
                                         </div>
                                         <div class="product-info">
                                           <div class="product-name"><span>${item.nm_product}</span></div>
-                                          <div class="product-price"><span class="special-price">${item.qt_product > 0 ? item.qt_product + ' Available': 'Out of stock'}</span> <span>R$${item.vl_product}</span></div>
+                                          <div class="product-price"><span class="special-price">${item.qt_product > 0 ? item.qt_product + ' Available' : 'Out of stock'}</span> <span>R$${item.vl_product}</span></div>
                                         </div>
                                       </li>`);
         });
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
       }
     });

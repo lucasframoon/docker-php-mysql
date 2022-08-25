@@ -78,6 +78,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script src="/source/views/assets/javascript/util.js"></script>
 </head>
 <!-- Header -->
 <amp-sidebar id="sidebar" class="sample-sidebar" layout="nodisplay" side="left">
@@ -98,8 +99,8 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69"
-        height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome"
+        width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -127,38 +128,7 @@
           <span class="data-grid-cell-content">Actions</span>
         </th>
       </tr>
-      <!-- <tr class="data-row">
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1 Name</span>
-        </td>
 
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1 Code</span>
-        </td>
-
-        <td class="data-grid-td">
-          <div class="actions">
-            <div class="action edit"><span>Edit</span></div>
-            <div class="action delete"><span>Delete</span></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 2 Name</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 2 Code</span>
-        </td>
-
-        <td class="data-grid-td">
-          <div class="actions">
-            <div class="action edit"><span>Edit</span></div>
-            <div class="action delete"><span>Delete</span></div>
-          </div>
-        </td>
-      </tr> -->
     </table>
   </main>
   <!-- Main Content -->
@@ -180,13 +150,15 @@
     $(document).ready(function () {
 
       $.ajax({
-        url: 'http://localhost:45000',
+        url: '/source/App/category/getAllCategories.php',
         type: 'GET',
         dataType: 'json',
         success: function (response) {
-          listCategories = response.listCategories;
-          listCategories.forEach(item => {
-            $('#categoryTr').append(`<tr class="data-row">
+
+          if (response.success) {
+
+            response.listCategories.forEach(item => {
+              $('.data-grid').append(`<tr class="data-row">
                                           <td class="data-grid-td">
                                             <span class="data-grid-cell-content">${item.nm_category}</span>
                                           </td>
@@ -197,16 +169,40 @@
 
                                           <td class="data-grid-td">
                                             <div class="actions">
-                                              <div class="action edit"><span>Edit</span></div>
-                                              <div class="action delete"><span>Delete</span></div>
+                                              <a href="http://localhost:45000/source/views/addCategory.html?id=${item.id_category}" class="link">
+                                                <div class="action edit" ><span>Edit</span></div>
+                                              </a>                                              
+                                              <div class="action delete" onclick="deleteCategory(${item.id_category})" ><span>Delete</span></div>                                              
                                             </div>
                                           </td>
                                         </tr>`);
-          });
+            });
+          } else {
+            console.warn(response.error)
+          }
+
         }
       });
 
     });
+
+    function deleteCategory(idCategory) {
+      $.ajax({
+        url: '/source/App/category/deleteCategory.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          idCategory: idCategory
+        },
+        success: function (response) {
+          if (response.success) {
+            window.location.reload();
+          } else {
+            console.warn(response.error)
+          }
+        }
+      });
+    }
 
   </script>
 </body>
