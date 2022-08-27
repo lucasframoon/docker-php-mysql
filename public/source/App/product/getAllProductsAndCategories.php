@@ -14,7 +14,7 @@ try {
     foreach ($listAllProducts as $prod) {
 
         //Get list of category of this product
-        $listOfCategoriesForThisProduct = (new Category())->categoriesByProduct($prod->id_product);
+        $listOfCategoriesForThisProduct = (new Category())->getCategoriesByProduct($prod->id_product);
         $categoriesNames = array();
 
         foreach ($listOfCategoriesForThisProduct as $category) {

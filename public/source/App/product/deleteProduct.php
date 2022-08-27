@@ -8,7 +8,7 @@ try {
     $idProduct = filter_var(filter_input(INPUT_POST, "idProduct"), FILTER_SANITIZE_NUMBER_INT);
 
     $product = (new Product())->getProductById($idProduct);
-    $result = $product->destroy();
+    $result = $product->deleteProductAndFile();
 
     //Generating request log
     $log = (new Log())->saveAction("Delete Product");

@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 class ProductTest extends TestCase
 {
 
-    // public function testProductInstance()
-    // {
-    //     $product = new Product();
-    //     $this->assertInstanceOf(Product::class, $product);
-    // }
+    public function testProductInstance()
+    {
+        $product = new Product();
+        $this->assertInstanceOf(Product::class, $product);
+    }
     
     // public function testProductNotBeAInstanteOf()
     // {
@@ -23,7 +23,8 @@ class ProductTest extends TestCase
 
     public function testProductGetAllProducts()
     {
-        $product = new Product();
-        $this->assertEquals(true, $product->getAllProducts());
+        $product = (new Product())->getProductById(1);
+
+        $this->assertInstanceOf(Product::class, $product);
     }
 }

@@ -50,13 +50,13 @@ class Upload
 
         //Validating duplication
         $duplicates = $this->duplicates > 0 ? '-' . $this->duplicates : '';
-        
+
         return $this->name . $duplicates . $extension;
     }
 
     /**
      * Getting a possible name for the file
-     * @param  string  $dir -Directory where the file will be saved
+     * @param  string  $dir Directory where the file will be saved
      * @param  boolean $overwrite -Can overite?
      * @return string
      */
@@ -77,7 +77,7 @@ class Upload
 
     /**
      * Move the file
-     * @param  string  $dir -Directory where the file will be saved
+     * @param  string  $dir Directory where the file will be saved
      * @param  boolean $overwrite -Can overite?
      * @return boolean
      */
@@ -88,6 +88,15 @@ class Upload
         $basename = $this->getPossibleBasename($dir, $overwrite);
         $path = $dir . '/' . $basename;
 
-        return ['result'=>move_uploaded_file($this->tmpName, $path),'basename'=>$basename];
+        return ['result' => move_uploaded_file($this->tmpName, $path), 'basename' => $basename];
+    }   
+
+    /**
+     * Delete the file from the server
+     * @param  string $fullPath Full path to the file
+     */
+    public static function deleteFile($fullPath)
+    {
+        return unlink($fullPath);
     }
 }

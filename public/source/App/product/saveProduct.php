@@ -85,6 +85,11 @@ try {
     }
 
     if (isset($dsFilePath)) {
+
+        if ($this->ds_file_path != "") {
+            Upload::deleteFile($this->ds_file_path);
+        }
+
         $product->ds_file_path = $dsFilePath;
     }
 
@@ -110,6 +115,11 @@ try {
 
                 array_push($allCategoriesResponse, $idCategory . "= " . $res);
             }
+        }
+    } else {
+
+        if ($dsFilePath != "") {
+            Upload::deleteFile($dsFilePath);
         }
     }
 

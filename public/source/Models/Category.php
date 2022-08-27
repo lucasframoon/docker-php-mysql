@@ -24,7 +24,7 @@ class Category extends DataLayer
     }
 
     //Get all categories related to this product
-    public function categoriesByProduct($idProduct)
+    public function getCategoriesByProduct($idProduct)
     {
 
         return $this->find(

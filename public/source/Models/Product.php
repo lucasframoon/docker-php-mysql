@@ -25,7 +25,7 @@ class Product extends DataLayer
     }
 
     //Get all products related to this category
-    public function producyByCategory($idCategory)
+    public function getProductsByCategory($idCategory)
     {
         return $this->find(
             "id_product IN (SELECT id_product 
@@ -35,5 +35,15 @@ class Product extends DataLayer
         )->fetch(true);
     }
 
-    //LCSTODO: delete product and file
+    //Checks if the product has associated file and deletes and deletes the file
+    public function deleteProductAndFile()
+    {
+
+        if ($this->ds_file_path != "") {
+
+            Upload::deleteFile($this->ds_file_path);
+        }
+
+        $this->destroy();
+    }
 }
