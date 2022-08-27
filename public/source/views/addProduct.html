@@ -215,7 +215,7 @@
     formData.append("qt_product", $("#quantity").val());
     formData.append("id_category", $("#category").val());
     formData.append("ds_description", $("#description").val());
-    formData.append("image", $("#product-image").prop("files")[0]);
+    formData.append("product_image", $("#product-image").prop("files")[0]);
 
     $.ajax({
       url: 'http://localhost:45000/source/App/product/saveProduct.php',

@@ -1,11 +1,12 @@
 <?php
 require __DIR__ . "/../../../vendor/autoload.php";
 
-ini_set('display_errors', 1);
+ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 use Source\Models\Product;
 use Source\Models\ProductCategory;
+use Source\Models\Upload;
 
 try {
     $idProduct = filter_var(filter_input(INPUT_POST, "id_product"), FILTER_SANITIZE_NUMBER_INT);
@@ -15,26 +16,28 @@ try {
     $nmProduct = filter_var(filter_input(INPUT_POST, "nm_product"));
     $vlProduct = filter_var(filter_input(INPUT_POST, "vl_product"));
     $dsDescription = filter_var(filter_input(INPUT_POST, "ds_description"));
-    $upload = new \CoffeeCode\Uploader\Image(__DIR__ . "/../../uploads", "images");
-    $files = $_FILES;
 
-    if ($files["image"]) {
-        $file = $files["image"];
+    if (isset($_FILES["product_image"])) {
 
-        if (empty($file["type"]) || !in_array($file["type"], $upload::isAllowed())) {
+        $fileToUpload = new Upload($_FILES["product_image"]);
+        $fileToUpload->generateNewName();
+        $uploaded = $fileToUpload->upload(__DIR__ . "/../../uploads", false);;
+
+        if ($uploaded["result"]) {
+            $dsFilePath = "/source/uploads" . $uploaded["basename"];
+        } else {
+
+
             echo json_encode([
-                'success' => false,
-                'error' => 'invalid_param',
-                'message' => 'Invalid image type',
-                'teste' => $file
+                "success" => false,
+                "error" => "invalid_param",
+                "message" => "Invalid image type",
+                "teste" => $fileToUpload
             ]);
             exit;
-        } else {
-            $uploaded = $upload->upload($file, pathinfo($file["name"], PATHINFO_FILENAME), 1080);
         }
     }
-    var_dump($uploaded);
-    exit;
+
     $product = new Product();
     $responseProduct = false;
     $isUpdate = false;
@@ -49,9 +52,9 @@ try {
 
     if ($nrSku == "" || !is_numeric($nrSku)) {
         echo json_encode([
-            'success' => false,
-            'error' => 'invalid_param',
-            'message' => 'Invalid SKU'
+            "success" => false,
+            "error" => "invalid_param",
+            "message" => "Invalid SKU"
         ]);
         exit;
     } else {
@@ -60,9 +63,9 @@ try {
 
     if ($nmProduct == "") {
         echo json_encode([
-            'success' => false,
-            'error' => 'invalid_param',
-            'message' => 'Invalid name'
+            "success" => false,
+            "error" => "invalid_param",
+            "message" => "Invalid name"
         ]);
         exit;
     } else {
@@ -81,18 +84,14 @@ try {
         $product->ds_description = $dsDescription;
     }
 
-    if (isset($uploaded)) {
-        $product->ds_file_path = $uploaded;
+    if (isset($dsFilePath)) {
+        $product->ds_file_path = $dsFilePath;
     }
 
     $responseProduct = $product->save();
-    // print_r([$responseProduct, '---', $product->id_product]);
-    // exit;
 
     if ($responseProduct) {
 
-
-        //LCSTODO arrumar para quando editar apagar as antigas antes de inserir as novas
         if ($isUpdate) {
             $productCategory = new ProductCategory();
             $listProductCategoryToDestroy = $productCategory->find("id_product = :id_product", ":id_product=" . $product->id_product)->fetch(true);
@@ -103,7 +102,7 @@ try {
 
 
         if ($idCategory != "") {
-            $idsCategory = explode(',', $idCategory);
+            $idsCategory = explode(",", $idCategory);
             foreach ($idsCategory as $idCategory) {
                 $productCategory = new ProductCategory();
                 $productCategory->id_category = $idCategory;
@@ -116,13 +115,13 @@ try {
     }
 
     echo json_encode([
-        'success' => true,
-        'idProduct' => $product->id_product,
-        'responseProduct' => $responseProduct,
-        'allCategoriesResponse' => $allCategoriesResponse
+        "success" => true,
+        "idProduct" => $product->id_product,
+        "responseProduct" => $responseProduct,
+        "allCategoriesResponse" => $allCategoriesResponse
     ]);
     exit;
 } catch (\Throwable $th) {
-    echo json_encode(['success' => false, 'error' => $th->getMessage()]);
+    echo json_encode(["success" => false, "error" => $th->getMessage()]);
     exit;
 }
