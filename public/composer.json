@@ -6,9 +6,12 @@
         },
         "files": [
             "source/Config.php"
-        ]
+        ]       
     },
     "require":{
         "coffeecode/datalayer": "1.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
     }
 }
