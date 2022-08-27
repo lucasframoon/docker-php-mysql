@@ -9,8 +9,6 @@ use Source\Models\Category;
 try {
     $idCategory = filter_var(filter_input(INPUT_POST, "idCategory"), FILTER_SANITIZE_NUMBER_INT);
 
-
-    $category = new Category();
     $category = (new Category())->find("id_category = :id_category", ":id_category=" . $idCategory)->fetch();
     $result = $category->destroy();
 

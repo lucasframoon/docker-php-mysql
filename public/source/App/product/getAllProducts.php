@@ -5,8 +5,7 @@ use Source\Models\Product;
 
 try {
     $listProducts = array();
-    $product = new Product();
-    $list = $product->find()->fetch(true);
+    $list = (new Product())->find()->fetch(true);
 
     foreach ($list as $prod) {
         array_push($listProducts, $prod->data());

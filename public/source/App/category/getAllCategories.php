@@ -9,8 +9,7 @@ use Source\Models\Category;
 try {
 
     $listCategories = array();
-    $category = new Category();
-    $list = $category->find()->fetch(true);
+    $list = (new Category())->find()->fetch(true);
 
     foreach ($list as $cat) {
         array_push($listCategories, $cat->data());

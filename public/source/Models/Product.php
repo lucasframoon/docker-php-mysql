@@ -36,8 +36,13 @@ class Product extends DataLayer
         return $product->destroy();
     }
 
-    // public function categoriesByProduct()
-    // {
-    //     return (new Category())->find("id_category = :idCategory", ":idCategory=" . ($this->id_category))->fetch(true);
-    // }
+    public function categoriesByProduct()
+    {
+        
+        return (new Category())->find("id_category IN (SELECT id_category 
+                                                        FROM product_category pc
+                                                        WHERE id_product = :idProduct)",
+                                                        ":idProduct=" .  $this->id_product,
+                                                        "nm_category, id_category")->fetch(true);
+    }
 }

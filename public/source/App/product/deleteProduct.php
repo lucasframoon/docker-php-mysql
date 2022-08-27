@@ -9,7 +9,6 @@ use Source\Models\Product;
 try {
     $idProduct = filter_var(filter_input(INPUT_POST, "idProduct"), FILTER_SANITIZE_NUMBER_INT);
 
-    $product = new Product();
     $product = (new Product())->find("id_product = :id_product", ":id_product=" . $idProduct)->fetch();
     $result = $product->destroy();
 
