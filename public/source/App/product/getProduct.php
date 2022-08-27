@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 use Source\Models\Product;
 use Source\Models\ProductCategory;
+use Source\Models\Log;
 
 try {
     $idProduct = filter_var(filter_input(INPUT_POST, "idProduct"), FILTER_SANITIZE_NUMBER_INT);
@@ -18,6 +19,10 @@ try {
         array_push($productCategories, $prodCat->id_category);
     }
 
+//Generating request log
+$log = new Log();
+$log->ds_action = "Get Product";
+$log->save();
 
     echo json_encode([
         'success' => true,

@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 use Source\Models\Product;
 use Source\Models\ProductCategory;
 use Source\Models\Upload;
+use Source\Models\Log;
 
 try {
     $idProduct = filter_var(filter_input(INPUT_POST, "id_product"), FILTER_SANITIZE_NUMBER_INT);
@@ -24,7 +25,7 @@ try {
         $uploaded = $fileToUpload->upload(__DIR__ . "/../../uploads", false);;
 
         if ($uploaded["result"]) {
-            $dsFilePath = "/source/uploads" . $uploaded["basename"];
+            $dsFilePath = "/source/uploads/" . $uploaded["basename"];
         } else {
 
 
@@ -93,8 +94,7 @@ try {
     if ($responseProduct) {
 
         if ($isUpdate) {
-            $productCategory = new ProductCategory();
-            $listProductCategoryToDestroy = $productCategory->find("id_product = :id_product", ":id_product=" . $product->id_product)->fetch(true);
+            $listProductCategoryToDestroy = (new ProductCategory())->find("id_product = :id_product", ":id_product=" . $product->id_product)->fetch(true);
             foreach ($listProductCategoryToDestroy as $prodCat) {
                 $prodCat->destroy();
             }
@@ -113,6 +113,11 @@ try {
             }
         }
     }
+
+    //Generating request log
+    $log = new Log();
+    $log->ds_action = "Save Product";
+    $log->save();
 
     echo json_encode([
         "success" => true,

@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 use Source\Models\Category;
+use Source\Models\Log;
 
 try {
 
@@ -21,6 +22,10 @@ try {
         $isUpdate = true;
     }
 
+    //Generating request log
+    $log = new Log();
+    $log->ds_action = "Save Category";
+    $log->save();
 
     if ($nmCategory == "") {
         echo json_encode([

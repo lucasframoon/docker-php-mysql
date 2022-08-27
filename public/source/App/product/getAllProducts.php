@@ -11,6 +11,7 @@ try {
         array_push($listProducts, $prod->data());
     }
 
+    
     echo json_encode(['success' => true, 'listProducts' => $listProducts]);
 } catch (\Throwable $th) {
     echo json_encode(['success' => false, 'error' => $th->getMessage()]);

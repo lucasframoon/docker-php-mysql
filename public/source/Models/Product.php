@@ -20,29 +20,18 @@ class Product extends DataLayer
 
     public static function getAllProducts()
     {
-        $product = new Product();
-        return $product->find()->fetch(true);
-
-    }
-
-    public function saveProduct(Product $product)
-    {
-        return $product->save();
-        
-    }
-
-    public function deleteProduct(Product $product)
-    {
-        return $product->destroy();
+        return (new Product())->find()->fetch(true);
     }
 
     public function categoriesByProduct()
     {
-        
-        return (new Category())->find("id_category IN (SELECT id_category 
+
+        return (new Category())->find(
+            "id_category IN (SELECT id_category 
                                                         FROM product_category pc
                                                         WHERE id_product = :idProduct)",
-                                                        ":idProduct=" .  $this->id_product,
-                                                        "nm_category, id_category")->fetch(true);
+            ":idProduct=" .  $this->id_product,
+            "nm_category, id_category"
+        )->fetch(true);
     }
 }
