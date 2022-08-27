@@ -1,32 +1,28 @@
 <?php
 require __DIR__ . "/../../../vendor/autoload.php";
 
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
-
 use Source\Models\Product;
+use Source\Models\Category;
 
 try {
 
     $listProductsAndCategories = array();
     $productCategories = array();
 
-    $listProducts = (new Product())->find()->fetch(true);
+    $listAllProducts = (new Product())->getAllProducts();
 
-    foreach ($listProducts as $prod) {
+    foreach ($listAllProducts as $prod) {
 
         //Get list of category of this product
-        $listOfCategoriesForThisProduct = $prod->categoriesByProduct();
+        $listOfCategoriesForThisProduct = (new Category())->categoriesByProduct($prod->id_product);
         $categoriesNames = array();
 
         foreach ($listOfCategoriesForThisProduct as $category) {
-            array_push($categoriesNames, $category->nm_category);
+            $categoriesNames[] = $category->nm_category;
         }
 
         array_push($listProductsAndCategories, [$prod->data(), $categoriesNames]);
     }
-
-
 
     echo json_encode(['success' => true, 'listProductsAndCategories' => $listProductsAndCategories]);
     exit;

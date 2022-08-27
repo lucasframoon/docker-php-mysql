@@ -28,7 +28,6 @@ try {
             $dsFilePath = "/source/uploads/" . $uploaded["basename"];
         } else {
 
-
             echo json_encode([
                 "success" => false,
                 "error" => "invalid_param",
@@ -51,26 +50,26 @@ try {
     }
 
 
-    if ($nrSku == "" || !is_numeric($nrSku)) {
+    if ($nrSku != "" || is_numeric($nrSku)) {
+        $product->nr_sku = $nrSku;
+    } else {
         echo json_encode([
             "success" => false,
             "error" => "invalid_param",
             "message" => "Invalid SKU"
         ]);
         exit;
-    } else {
-        $product->nr_sku = $nrSku;
     }
 
-    if ($nmProduct == "") {
+    if ($nmProduct != "") {
+        $product->nm_product = $nmProduct;
+    } else {
         echo json_encode([
             "success" => false,
             "error" => "invalid_param",
             "message" => "Invalid name"
         ]);
         exit;
-    } else {
-        $product->nm_product = $nmProduct;
     }
 
     if ($vlProduct != "") {
@@ -94,7 +93,7 @@ try {
     if ($responseProduct) {
 
         if ($isUpdate) {
-            $listProductCategoryToDestroy = (new ProductCategory())->find("id_product = :id_product", ":id_product=" . $product->id_product)->fetch(true);
+            $listProductCategoryToDestroy = (new ProductCategory())->getProductCategoryByIdProduct($product->id_product);
             foreach ($listProductCategoryToDestroy as $prodCat) {
                 $prodCat->destroy();
             }
@@ -115,9 +114,7 @@ try {
     }
 
     //Generating request log
-    $log = new Log();
-    $log->ds_action = "Save Product";
-    $log->save();
+    $log = (new Log())->saveAction("Save Product");
 
     echo json_encode([
         "success" => true,

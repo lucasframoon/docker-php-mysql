@@ -4,17 +4,17 @@ namespace Source\Models;
 
 use CoffeeCode\DataLayer\DataLayer;
 
-/**
- * Class Product
- * @package Source\Models
- */
 class Log extends DataLayer
 {
-    /**
-     * Product constructor.
-     */
+
     public function __construct()
     {
         parent::__construct("logs", ["ds_action"]);
+    }
+    
+    public function saveAction($dsAction)
+    {
+        $this->ds_action = $dsAction;
+        return $this->save();
     }
 }

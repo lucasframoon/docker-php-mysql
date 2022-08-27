@@ -18,14 +18,13 @@ try {
 
     if ($idCategory != "") {
 
-        $category = (new Category())->findById($idCategory);
+        $category = (new Category())->getCategoryById($idCategory);
         $isUpdate = true;
     }
 
     //Generating request log
-    $log = new Log();
-    $log->ds_action = "Save Category";
-    $log->save();
+    $log = (new Log())->saveAction("Save Category");
+
 
     if ($nmCategory == "") {
         echo json_encode([

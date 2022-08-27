@@ -11,18 +11,16 @@ try {
     $idProduct = filter_var(filter_input(INPUT_POST, "idProduct"), FILTER_SANITIZE_NUMBER_INT);
     $productCategories = array();
 
-    $product = (new Product())->find("id_product = :id_product", ":id_product=" . $idProduct)->fetch();
+    $product = (new Product())->getProductById($idProduct);
 
     //Get list of category of this product
-    $list = (new ProductCategory())->find("id_product = :id_product", ":id_product=" . $idProduct)->fetch(true);
+    $list = (new ProductCategory())->getProductCategoryByIdProduct($idProduct);
     foreach ($list as $prodCat) {
         array_push($productCategories, $prodCat->id_category);
     }
 
-//Generating request log
-$log = new Log();
-$log->ds_action = "Get Product";
-$log->save();
+    //Generating request log
+    $log = (new Log())->saveAction("Get Product");
 
     echo json_encode([
         'success' => true,

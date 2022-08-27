@@ -9,20 +9,31 @@ class Category extends DataLayer
     public function __construct()
     {
         parent::__construct("categories", ["nm_category"], "id_category", false);
+    }    
+
+    //Get list off all categories
+    public function getAllCategories()
+    {
+        return $this->find()->fetch(true);
     }
 
-    public function productsByCategory()
+    //Get category by id category
+    public function getCategoryById($idCategory)
     {
-        return (new Product())->find("id_category = :idCategory", ":idCategory=" . ($this->id_category))->fetch(true);
+        return $this->find("id_category = :id_category", ":id_category=" . $idCategory)->fetch();
     }
 
-    public function saveCategory(Category $category)
+    //Get all categories related to this product
+    public function categoriesByProduct($idProduct)
     {
-        return $category->save();
-    }
 
-    public function deleteCategory(Category $category)
-    {
-        return $category->destroy();
+        return $this->find(
+            "id_category IN (SELECT id_category 
+                             FROM product_category pc
+                             WHERE id_product = :idProduct)",
+            ":idProduct=" .  $idProduct,
+            "nm_category, id_category"
+        )->fetch(true);
     }
+    
 }

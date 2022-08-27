@@ -11,18 +11,21 @@ class ProductCategory extends DataLayer
         parent::__construct("product_category", ["id_category", "id_product"], "id", false);
     }
 
-    // public function productsByCategory()
-    // {
-    //     return (new Product())->find("id_category = :id_category", ":id_category=" . ($this->id_category))->fetch(true);
-    // }
+    public function getAllProductCategory()
+    {
+        return $this->find()->fetch(true);
+    }
 
-    // public function saveProductCategory(ProductCategory $category)
-    // {
-    //     return $category->save();
-    // }
+    //Get list of categories related to this product
+    public function getProductCategoryByIdProduct($idProduct)
+    {
+        return $this->find("id_product = :id_product", ":id_product=" . $idProduct)->fetch();
+    }
 
-    // public function deleteProductCategory(ProductCategory $category)
-    // {
-    //     return $category->destroy();
-    // }
+    //Get list of products in this category
+    public function getProductCategoryByIdCategory($idCategory)
+    {
+        return $this->find("id_category = :id_category", ":id_category=" . $idCategory)->fetch();
+    }
+ 
 }

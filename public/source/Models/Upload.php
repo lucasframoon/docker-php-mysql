@@ -30,27 +30,34 @@ class Upload
         $this->name = $name;
     }
 
+    /**
+     * Generating a random name
+     * @return string
+     */
     public function generateNewName()
     {
         $this->name = time() . '-' . rand(100000, 999999) . '-' . uniqid();
     }
 
+    /**
+     * Getting the saved basename
+     * @return string 
+     */
     public function getBasename()
     {
-        //VALIDA EXTENSÃO
+        //Validating the extension
         $extension = strlen($this->extension) ? '.' . $this->extension : '';
 
-        //VALIDA DUPLICAÇÃO
+        //Validating duplication
         $duplicates = $this->duplicates > 0 ? '-' . $this->duplicates : '';
-
-        //RETORNA O NOME COMPLETO
+        
         return $this->name . $duplicates . $extension;
     }
 
     /**
-     * Método responsável por obter um nome possível para o arquivo
-     * @param  string  $dir
-     * @param  boolean $overwrite pode sobrescrever
+     * Getting a possible name for the file
+     * @param  string  $dir -Directory where the file will be saved
+     * @param  boolean $overwrite -Can overite?
      * @return string
      */
     private function getPossibleBasename($dir, $overwrite)
@@ -69,12 +76,12 @@ class Upload
     }
 
     /**
-     * Move o arquivo
-     * @param  string  $dir
-     * @param  boolean $overwrite
+     * Move the file
+     * @param  string  $dir -Directory where the file will be saved
+     * @param  boolean $overwrite -Can overite?
      * @return boolean
      */
-    public function upload($dir, $overwrite = true)
+    public function upload($dir, $overwrite = false)
     {
         if ($this->error != 0) return false;
 

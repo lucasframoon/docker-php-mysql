@@ -7,12 +7,11 @@ use Source\Models\Log;
 try {
     $idCategory = filter_var(filter_input(INPUT_POST, "idCategory"), FILTER_SANITIZE_NUMBER_INT);
 
-    $category = (new Category())->find("id_category = :id_category", ":id_category=" . $idCategory)->fetch();
+    $category = (new Category())->getCategoryById($idCategory);
 
-    //Generating request log
-    $log = new Log();
-    $log->ds_action = "Get Category";
-    $log->save();
+    //Generating request log    
+    $log = (new Log())->saveAction("Get Category");
+
 
     echo json_encode([
         'success' => true,
