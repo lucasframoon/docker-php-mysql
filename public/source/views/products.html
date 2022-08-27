@@ -99,8 +99,8 @@
 <header>
   <div class="go-menu">
     <a on="tap:sidebar.toggle">☰</a>
-    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome" width="69"
-        height="430" /></a>
+    <a href="dashboard.html" class="link-logo"><img src="/source/views/assets/images/go-logo.png" alt="Welcome"
+        width="69" height="430" /></a>
   </div>
   <div class="right-box">
     <span class="go-title">Administration Panel</span>
@@ -137,62 +137,6 @@
           <span class="data-grid-cell-content">Actions</span>
         </th>
       </tr>
-      <tr class="data-row">
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Product 1 Name</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">SKU1</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">R$ 19,90</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">100</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1 <Br />Category 2</span>
-        </td>
-
-        <td class="data-grid-td">
-          <div class="actions">
-            <div class="action edit"><span>Edit</span></div>
-            <div class="action delete"><span>Delete</span></div>
-          </div>
-        </td>
-      </tr>
-      <tr class="data-row">
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Product 2 Name</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">SKU2</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">R$ 59,90</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">999</span>
-        </td>
-
-        <td class="data-grid-td">
-          <span class="data-grid-cell-content">Category 1</span>
-        </td>
-
-        <td class="data-grid-td">
-          <div class="actions">
-            <div class="action edit"><span>Edit</span></div>
-            <div class="action delete"><span>Delete</span></div>
-          </div>
-        </td>
-      </tr>
     </table>
   </main>
   <!-- Main Content -->
@@ -208,7 +152,79 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-  <script></script>
+  <script>
+    $(document).ready(function () {
+
+      $.ajax({
+        url: '/source/App/product/getAllProductsAndCategories.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+
+          if (response.success) {
+
+            response.listProductsAndCategories.forEach(item => {
+              var categories = "";
+              item[1].forEach(cat => {
+                categories += `${cat}<Br/>`
+              })
+
+              $('.data-grid').append(
+                `<tr class="data-row">
+                  <td class="data-grid-td">
+                    <span class="data-grid-cell-content">${item[0].nm_product}</span>
+                  </td>
+                  <td class="data-grid-td">
+                    <span class="data-grid-cell-content">${item[0].nr_sku}</span>
+                  </td>
+                  <td class="data-grid-td">
+                    <span class="data-grid-cell-content">R$ ${item[0].vl_product}</span>
+                  </td>
+                  <td class="data-grid-td">
+                    <span class="data-grid-cell-content">${item[0].qt_product}</span>
+                  </td>
+                  <td class="data-grid-td">
+                    <span class="data-grid-cell-content">${categories}</span>
+                  </td>
+                  <td class="data-grid-td">
+                    <div class="actions">
+                      <a href="http://localhost:45000/source/views/addProduct.html?id=${item[0].id_product}" class="link">
+                        <div class="action edit" ><span>Edit</span></div>
+                      </a>  
+                      <div class="action delete" onclick="deleteProduct(${item[0].id_product})" ><span>Delete</span></div>                                              
+                    </div>
+                  </td>
+                </tr>`);
+            });
+          } else {
+            console.warn(response.error)
+          }
+
+        }
+      });
+
+    });
+
+    function deleteProduct(idProduct) {
+      $.ajax({
+        url: '/source/App/product/deleteProduct.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          idProduct: idProduct
+        },
+        success: function (response) {
+          if (response.success) {
+            window.location.reload();
+          } else {
+            console.warn(response.error)
+          }
+        }
+      });
+    }
+
+
+  </script>
   <!-- Footer -->
 </body>
 
